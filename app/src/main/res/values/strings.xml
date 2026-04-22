@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AR Position Set</string>
+
+    <!-- Permissions -->
+    <string name="permission_camera_title">Нужен доступ к камере</string>
+    <string name="permission_camera_rationale">Камера нужна для сканирования пространства и размещения объектов в дополненной реальности.</string>
+    <string name="permission_camera_grant">Разрешить</string>
+    <string name="permission_camera_settings">Открыть настройки</string>
+
+    <!-- AR status -->
+    <string name="ar_status_searching">Двигайте телефоном, чтобы найти поверхности</string>
+    <string name="ar_status_ready">Коснитесь поверхности, чтобы разместить объект</string>
+    <string name="ar_status_no_tracking">Потеряно отслеживание. Осмотритесь</string>
+    <string name="ar_status_unsupported">Устройство не поддерживает ARCore</string>
+    <string name="ar_status_installing">Установка сервисов ARCore…</string>
+
+    <!-- Placement prompt -->
+    <string name="action_place">Установить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_close">Закрыть</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_done">Готово</string>
+
+    <!-- Top bar -->
+    <string name="title_pick_object">Выберите объект</string>
+    <string name="toggle_planes">Оцифровка поверхностей</string>
+    <string name="clear_scene">Очистить сцену</string>
+
+    <!-- Gallery -->
+    <string name="gallery_tab_library">Библиотека</string>
+    <string name="gallery_tab_cloud">Облако</string>
+    <string name="gallery_tab_device">Импорт</string>
+    <string name="gallery_empty_cloud">Нет облачных моделей</string>
+    <string name="gallery_import_hint">Выберите GLB/GLTF файл из памяти устройства</string>
+    <string name="gallery_downloading">Загрузка модели…</string>
+
+    <!-- Transform -->
+    <string name="transform_scale">Масштаб</string>
+    <string name="transform_rotate">Поворот</string>
+    <string name="transform_move_hint">Перетащите объект, чтобы переместить</string>
+    <string name="selected_object">Выбран: %1$s</string>
+
+    <!-- Errors -->
+    <string name="error_load_model">Не удалось загрузить модель</string>
+    <string name="error_no_plane">Нет обнаруженной поверхности в точке касания</string>
+    <string name="error_network">Нет соединения с сетью</string>
+</resources>
