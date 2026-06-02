@@ -1,0 +1,54 @@
+name: Release Build (APK)
+
+# Сборка debug-APK (устанавливаемый, подписан debug-ключом) для распространения
+# тестовых билдов. Релизной подписи (keystore) в проекте нет — поэтому в Release
+# идёт именно debug-APK. Для Play Store добавьте keystore и переключите на
+# assembleRelease.
+#
+# Запускается:
+#   • при пуше тега вида v1.2.3 — собирает APK и публикует GitHub Release;
+#   • вручную (workflow_dispatch) — собирает APK и кладёт его в artifacts.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write   # нужно для создания Release и заливки APK
+
+jobs:
+  build-apk:
+    name: Build APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build debug APK
+        run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ar-position-set-apk
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      # Только при пуше тега: публикуем Release с прикреплённым APK.
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/build/outputs/apk/debug/*.apk
+          generate_release_notes: true

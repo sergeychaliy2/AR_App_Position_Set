@@ -12,3 +12,15 @@ local.properties
 /app/release
 /app/debug
 .kotlin/
+
+# Локальные служебные папки инструментов
+.claude/
+
+# Подпись релиза — НИКОГДА не коммитить keystore
+keystore.properties
+*.keystore
+*.jks
+
+# Собранные артефакты
+*.apk
+*.aab

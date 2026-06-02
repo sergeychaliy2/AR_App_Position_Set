@@ -1,5 +1,8 @@
 # AR Position Set
 
+[![CI](https://github.com/sergeychaliy2/AR_App_Position_Set/actions/workflows/ci.yml/badge.svg)](https://github.com/sergeychaliy2/AR_App_Position_Set/actions/workflows/ci.yml)
+[![Release Build](https://github.com/sergeychaliy2/AR_App_Position_Set/actions/workflows/release.yml/badge.svg)](https://github.com/sergeychaliy2/AR_App_Position_Set/actions/workflows/release.yml)
+
 Android-приложение дополненной реальности для размещения 3D-моделей на реальных поверхностях с привязкой к физическим маркерам для персистентности между сессиями.
 
 ---
@@ -228,6 +231,21 @@ adb shell am start -n com.arpositionset.app.debug/com.arpositionset.app.presenta
 
 Подписание — свой `keystore.properties`. Включён R8 с правилами в `app/proguard-rules.pro` (защищены Filament/SceneView/ARCore JNI-классы, kotlinx.serialization, Retrofit, Hilt).
 
+### CI/CD (GitHub Actions)
+
+| Workflow | Когда запускается | Что делает |
+|---|---|---|
+| [`ci.yml`](.github/workflows/ci.yml) | каждый push/PR в `main` | `./gradlew :app:assembleDebug` — проверка, что проект собирается (KSP/Hilt/Room) |
+| [`release.yml`](.github/workflows/release.yml) | тег `v*` или вручную | сборка debug-APK → публикация в **GitHub Releases** (по тегу) и в artifacts |
+
+> В Release идёт **debug-подписанный APK** (устанавливаемый для тестов), т.к. релизной подписи (keystore) в проекте нет. Для Play Store добавьте `keystore.properties` и переключите workflow на `assembleRelease`.
+
+**Выпуск:**
+```bash
+git tag v1.0.0
+git push origin v1.0.0   # → release.yml соберёт APK и создаст GitHub Release
+```
+
 ---
 
 ## Использование приложения
@@ -298,6 +316,7 @@ adb shell am start -n com.arpositionset.app.debug/com.arpositionset.app.presenta
 
 ## Лицензия
 
-Код приложения — MIT (или корпоративная закрытая, в зависимости от развёртывания).
-3D-модели в `assets/models/` — CC-BY / CC0, Khronos glTF Sample Models.
-Маркер по умолчанию в `assets/markers/demo_marker.jpg` — Google ARCore SDK sample, Apache 2.0.
+Код приложения — **проприетарный, все права защищены** (см. [`LICENSE`](LICENSE)).
+Сторонние ассеты сохраняют свои лицензии:
+- 3D-модели в `assets/models/` — CC-BY / CC0, Khronos glTF Sample Models.
+- Маркер по умолчанию `assets/markers/demo_marker.jpg` — Google ARCore SDK sample, Apache 2.0.
